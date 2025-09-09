@@ -1,5 +1,3 @@
-
-
 require 'rails_helper'
 
 RSpec.describe "Hello API", type: :request do
@@ -14,15 +12,27 @@ RSpec.describe "Hello API", type: :request do
 
   describe "GET /greet" do
     # Tạo một mảng gồm 10 chuỗi ngẫu nhiên để test
-    # `SecureRandom.hex` là một phương thức tuyệt vời để tạo chuỗi ngẫu nhiên và duy nhất.
     random_names = 10.times.map { SecureRandom.hex(5) }
 
-    context "with various random name parameters" do
+    context "with a name parameter and a language" do
       random_names.each do |name|
-        it "returns a greeting for the name '#{name}'" do
+        it "returns a Japanese greeting when lang=ja" do
+          get "/greet", params: { name: name, lang: 'ja' }
+          expect(response).to have_http_status(:ok)
+          json_response = JSON.parse(response.body)
+          expect(json_response["greeting"]).to eq("こんにちは、#{name}さん！")
+        end
+
+        it "returns an English greeting when lang=en" do
+          get "/greet", params: { name: name, lang: 'en' }
+          expect(response).to have_http_status(:ok)
+          json_response = JSON.parse(response.body)
+          expect(json_response["greeting"]).to eq("Hello, #{name}!")
+        end
+
+        it "defaults to an English greeting when lang is not provided" do
           get "/greet", params: { name: name }
           expect(response).to have_http_status(:ok)
-
           json_response = JSON.parse(response.body)
           expect(json_response["greeting"]).to eq("Hello, #{name}!")
         end
@@ -35,7 +45,16 @@ RSpec.describe "Hello API", type: :request do
         expect(response).to have_http_status(:bad_request)
 
         json_response = JSON.parse(response.body)
-        expect(json_response["error"]).to eq("Name parameter is missing")
+        expect(json_response["error"]).to eq("Name is required.")
+      end
+    end
+
+    context "without a name parameter and language is japanese" do
+      it "returns a bad request status with an error message" do
+        get "/greet", params: { lang: 'ja' }
+        expect(response).to have_http_status(:bad_request)
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to eq("名前は必須です。")
       end
     end
   end
