@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   # root "posts#index"
   get "hello", to: "hello#index"
   get "greet", to: "hello#greet"
+  post "sum", to: "math#sum_numbers"
 end
