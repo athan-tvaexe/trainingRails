@@ -1,0 +1,4 @@
+ja:
+  greetings:
+    hello: "こんにちは、%{name}さん！"
+    name_required: "名前は必須です。"
