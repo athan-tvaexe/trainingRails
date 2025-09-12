@@ -29,3 +29,6 @@
 
 en:
   hello: "Hello world"
+  greetings:
+    hello: "Hello, %{name}!"
+    name_required: "Name is required."

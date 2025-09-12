@@ -7,4 +7,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  get "hello", to: "hello#index"
+  get "greet", to: "hello#greet"
+  post "sum", to: "math#sum_numbers"
+  get "weather", to: "weather#index"
+  get "weather/bulk", to: "weather#bulk"
 end
