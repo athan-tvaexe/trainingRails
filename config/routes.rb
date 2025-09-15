@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   post "sum", to: "math#sum_numbers"
   get "weather", to: "weather#index"
   get "weather/bulk", to: "weather#bulk"
+  get "convert", to: "exchange#convert"
 end

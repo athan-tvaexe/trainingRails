@@ -96,8 +96,8 @@ RSpec.describe WeatherController, type: :request do
 
         # Check the number of API calls
         expect(a_request(:get, /api.openweathermap.org/)).to have_been_made.times(1)
-    
-    # オプション2: 最大1回まで（at_mostの代替）
+
+        # オプション2: 最大1回まで（at_mostの代替）
         expect(WebMock).to have_requested(:get, /api.openweathermap.org/).at_most_times(1)
       end
     end
