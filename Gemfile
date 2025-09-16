@@ -48,4 +48,5 @@ group :development, :test do
   gem "faraday"
   gem "dotenv-rails"
   gem "webmock"
+  gem "nokogiri"
 end
