@@ -24,7 +24,6 @@ RSpec.describe "Metadata API", type: :request do
   }
 
   describe "POST /metadata" do
-    
     # --- Test Case 1: Yêu cầu thành công ---
     context "when the URL is valid and fetch is successful" do
       before do
@@ -34,10 +33,10 @@ RSpec.describe "Metadata API", type: :request do
 
       it "returns the correct metadata with a 200 OK status" do
         post '/metadata', params: { url: 'https://example.com' }, as: :json
-        
+
         expect(response).to have_http_status(:ok)
         json_response = JSON.parse(response.body)
-        
+
         expect(json_response["url"]).to eq('https://example.com')
         expect(json_response["title"]).to eq('Open Graph Title') # Ưu tiên Open Graph
         expect(json_response["description"]).to eq('This domain is for use in illustrative examples in documents.')
@@ -47,8 +46,8 @@ RSpec.describe "Metadata API", type: :request do
     # --- Test Case 2: URL bị thiếu ---
     context "when the URL is missing" do
       it "returns a 400 Bad Request status" do
-        post '/metadata', params: { }, as: :json
-        
+        post '/metadata', params: {}, as: :json
+
         expect(response).to have_http_status(:bad_request)
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to eq('URL is required')
@@ -59,7 +58,7 @@ RSpec.describe "Metadata API", type: :request do
     context "when the URL format is invalid" do
       it "returns a 400 Bad Request status" do
         post '/metadata', params: { url: 'not-a-valid-url' }, as: :json
-        
+
         expect(response).to have_http_status(:bad_request)
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to eq('Invalid URL format')
@@ -75,13 +74,13 @@ RSpec.describe "Metadata API", type: :request do
 
       it "returns a 400 Bad Request status" do
         post '/metadata', params: { url: 'https://example.com' }, as: :json
-        
+
         expect(response).to have_http_status(:bad_request)
         json_response = JSON.parse(response.body)
         expect(json_response["error"]).to include('Failed to fetch URL')
       end
     end
-    
+
     # --- Test Case 5: Lấy dữ liệu thất bại (lỗi HTTP 404) ---
     context "when the URL returns a non-successful HTTP status" do
       before do
@@ -91,7 +90,7 @@ RSpec.describe "Metadata API", type: :request do
 
       it "returns a 400 Bad Request status" do
         post '/metadata', params: { url: 'https://example.com' }, as: :json
-        
+
         expect(response).to have_http_status(:ok)
         json_response = JSON.parse(response.body)
         expect(json_response["description"]).to be_nil

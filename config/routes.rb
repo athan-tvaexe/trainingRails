@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   get "weather/bulk", to: "weather#bulk"
   get "convert", to: "exchange#convert"
   post "metadata", to: "metadata#create"
+  post "poker", to: "poker#create"
 end
