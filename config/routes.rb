@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   get "convert", to: "exchange#convert"
   post "metadata", to: "metadata#create"
   post "poker", to: "poker#create"
+  post "scores", to: "scores#create"
+  get "scores/leaderboard", to: "scores#leaderboard"
 end

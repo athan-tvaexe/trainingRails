@@ -49,4 +49,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "webmock"
   gem "nokogiri"
+  gem "pg"
+  gem 'sorbet'
+  gem 'sorbet-runtime'
 end
