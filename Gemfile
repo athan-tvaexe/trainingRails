@@ -49,4 +49,5 @@ group :development, :test do
   gem "dotenv-rails"
   gem "webmock"
   gem "nokogiri"
+  gem "pg"
 end

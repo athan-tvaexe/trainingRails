@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   get "convert", to: "exchange#convert"
   post "metadata", to: "metadata#create"
   post "poker", to: "poker#create"
+  resources :tasks, only: %i[index create update destroy]
 end
